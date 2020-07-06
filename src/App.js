@@ -4,7 +4,7 @@ import HomePage from './pages/homepage/homepage.component.jsx'
 
 import { Switch, Route } from 'react-router-dom'
 
-//test
+//06-jul-2020
 
 const HatsPage = () => (
   <div>
