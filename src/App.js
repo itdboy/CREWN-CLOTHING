@@ -5,7 +5,7 @@ import HomePage from './pages/homepage/homepage.component.jsx'
 import { Switch, Route } from 'react-router-dom'
 import ShopPage from './pages/shop/shop.component.jsx'
 
-//07-jul-2020
+//07-jul-2022
 
 function App() {
   return (
