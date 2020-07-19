@@ -36,8 +36,7 @@ componentDidMount(){
                 ...snapShot.data()
               }
             })
-        })
-        console.log(this.state)
+        }) 
     }
     this.setState({currentUser: userAuth});
   })
