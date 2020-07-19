@@ -1,53 +1,52 @@
-import firebase from 'firebase/app' ;
-import 'firebase/firestore';
-import 'firebase/auth' ;
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
 
 const config = {
-    apiKey: "AIzaSyC1aZRb96W11B9yqHP6EvKCc7WesAYny6A",
-    authDomain: "crwn-db-615ff.firebaseapp.com",
-    databaseURL: "https://crwn-db-615ff.firebaseio.com",
-    projectId: "crwn-db-615ff",
-    storageBucket: "crwn-db-615ff.appspot.com",
-    messagingSenderId: "765785664853",
-    appId: "1:765785664853:web:996120e5316832fd55d3dc",
-    measurementId: "G-651VWH48P9"
-  };
+  apiKey: 'AIzaSyC1aZRb96W11B9yqHP6EvKCc7WesAYny6A',
+  authDomain: 'crwn-db-615ff.firebaseapp.com',
+  databaseURL: 'https://crwn-db-615ff.firebaseio.com',
+  projectId: 'crwn-db-615ff',
+  storageBucket: 'crwn-db-615ff.appspot.com',
+  messagingSenderId: '765785664853',
+  appId: '1:765785664853:web:996120e5316832fd55d3dc',
+  measurementId: 'G-651VWH48P9',
+}
 
-  export const createUserProfileDocument = async (userAuth, additionalData) => {
-    
-    if(!userAuth) return ;
+firebase.initializeApp(config)
 
-    const userRef  = firestore.doc(`users/${userAuth.uid}`)
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return
 
-    const snapShot = await userRef.get();
+  const userRef = firestore.doc(`users/${userAuth.uid}`)
 
-     if(!snapShot.exists){
-       const {displayName, email} = userAuth;
-       const createAt = new Date();
+  const snapShot = await userRef.get()
 
-       try {
-         await userRef.set({
-           displayName,
-           email,
-           createAt,
-           ...additionalData
-         })
-       }catch(error){
-         console.log('error creating user', error.message)
-       }
-     }
-     return userRef ;
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth
+    const createAt = new Date()
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createAt,
+        ...additionalData,
+      })
+    } catch (error) {
+      console.log('error creating user', error.message)
+    }
   }
+  return userRef
+}
 
- 
+firebase.initializeApp(config)
 
-  firebase.initializeApp(config);
+export const auth = firebase.auth()
+export const firestore = firebase.firestore()
 
-  export const auth = firebase.auth();
-  export const firestore = firebase.firestore();
+const provider = new firebase.auth.GoogleAuthProvider()
+provider.setCustomParameters({ prompt: 'select_account' })
+export const signInWithGoogle = () => auth.signInWithPopup(provider)
 
-  const provider  = new firebase.auth.GoogleAuthProvider();
-  provider.setCustomParameters({prompt:'select_account'});
-  export const signInWithGoogle = () => auth.signInWithPopup(provider);
-
-  export default firebase;
+export default firebase
