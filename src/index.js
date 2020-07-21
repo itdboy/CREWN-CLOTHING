@@ -6,10 +6,12 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { Provider } from 'react-redux'
 
+import store from './redux/store'
+
 // 11-Jul 20
 
 ReactDOM.render(
-  <Provider>
+  <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
